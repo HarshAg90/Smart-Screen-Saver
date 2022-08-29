@@ -21,3 +21,42 @@ body{
     font-size: 10rem;
     font-weight: 100;
 }
+.contributes{
+    display: flex;
+    margin-left: 3rem;
+}
+.contrib_box{
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    margin: 20px;
+}
+.zero{
+    background-color: rgba(112, 112, 112, 0.754);
+}
+.one{
+    background-color: rgba(0, 215, 253, 0.35);
+}
+.three{
+    background-color: rgba(0, 215, 253, 0.70);
+}
+.more{
+    background-color: rgba(0, 215, 253, 0.95);
+}
+
+.alert{
+    margin: 5px;
+    padding:1rem;
+    margin-left: 4rem;
+    border-radius: 10px;
+    width: fit-content;
+    color: rgba(201, 200, 200, 0.623);
+}
+.incomp_commit{
+    color: white;
+    background-color: rgba(199, 40, 40, 0.529);
+}
+.comp_commit{
+    color: white;
+    background-color: rgba(0, 215, 253, 0.35);
+}

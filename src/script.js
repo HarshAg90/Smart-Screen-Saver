@@ -26,52 +26,81 @@ currentTime();
 const username = "HarshAg90";
 const ghToken = "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";
 
-async function doFetch(gql){
+async function getContributions(token, username) {
     const headers = {
-        'Content-type': 'application/json',
-        'Authorization': 'token ' + ghToken,
+        'Authorization': `bearer ${token}`,
     }
-
-    let req = await fetch("https://api.github.com/graphql", {
-        method: "POST",
-        headers: headers,
-        body:  JSON.stringify(gql)
-    })
-
-    let response = await req.json()
-    return response.data
+    const body = {
+        "query": `{user(login: "${username}") {
+                    contributionsCollection {
+                    contributionCalendar {
+                        totalContributions
+                        weeks {
+                        contributionDays {
+                            contributionCount
+                            weekday
+                            date
+                        }
+                        }
+                    }
+                    }
+                }
+            }`
+    }
+    const response = await fetch('https://api.github.com/graphql', { method: 'POST', body: JSON.stringify(body), headers: headers })
+    const data = await response.json()
+    
+    return {week1: data.data.user.contributionsCollection.contributionCalendar.weeks[51].contributionDays, week2:data.data.user.contributionsCollection.contributionCalendar.weeks[52].contributionDays}
 }
-async function getContributions(login) {
-    const gql = {query: `
-    {
-      user(login: "${login}") {
-            contributionsCollection {
-            contributionCalendar {
-                totalContributions
-                weeks {
-                contributionDays {
-                    contributionCount
-                    weekday
-                    date
-                }
-                }
-            }
-            }
+
+
+
+var rendering_fn = function () {
+    (async()=>{
+        const data = await getContributions('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', 'HarshAg90');
+
+        const contrib_div = document.querySelector(".contributes");
+        const alert_div = document.querySelector(".alert")
+
+        let conrib_list = [];
+        let last_cont = 0;
+        for (let [key,value] of Object.entries(data.week1)){
+            conrib_list.push(value.contributionCount)
+            last_cont = value.contributionCount
         }
-    }
-    `}
-  
-    contib = await doFetch(gql)
-  
-    return contib
-}
+        for (let [key,value] of Object.entries(data.week2)){
+            conrib_list.push(value.contributionCount)
+            last_cont = value.contributionCount
+        }
+        console.log("Past 2 week contribution")
+        console.log(conrib_list)
 
-var fn = function (username, ghToken) {
-    (async()=>{  
-        let response = await getContributions(username)
-        console.log(response);
+        for (c= (conrib_list.length - 7 );c<conrib_list.length; c++){
+            contrib_count = conrib_list[c];
+            const contrib_box = document.createElement("Div");
+            contrib_box.classList.add("contrib_box");
+
+            if (contrib_count == 0){
+                contrib_box.classList.add("zero");
+            }else if (contrib_count == 1){
+                contrib_box.classList.add("one");
+            }else if (contrib_count <= 3){
+                contrib_box.classList.add("three");
+            }else if (contrib_count > 3){
+                contrib_box.classList.add("more");
+            }
+
+            contrib_div.appendChild(contrib_box)
+        }
+        if (last_cont ==0){
+            alert_div.innerText = "NO CONTRIBUTIONS TODAY"
+            alert_div.classList.add("incomp_commit");
+        }else if (last_cont>0){
+            alert_div.innerText = last_cont+ " - Contributions made today"
+            alert_div.classList.add("comp_commit");
+        }
     }
     )()
 }
 
-fn()
+rendering_fn()
