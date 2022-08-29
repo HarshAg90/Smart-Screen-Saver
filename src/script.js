@@ -57,7 +57,7 @@ async function getContributions(token, username) {
 
 var rendering_fn = function () {
     (async()=>{
-        const data = await getContributions('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', 'HarshAg90');
+        const data = await getContributions(secrets.ACCESS_TOKEN, 'HarshAg90');
 
         const contrib_div = document.querySelector(".contributes");
         const alert_div = document.querySelector(".alert")

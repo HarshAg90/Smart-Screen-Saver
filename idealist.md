@@ -9,6 +9,7 @@ Giant clock and GITHUB CONTRIBUTE status under it, beside -> some Todo or whatev
   
 - [ ] same to check every day’s commit (done or not), and checkmark the CONTRIBUTED sec,
 - [ ] Maybe add 7 squares for green and grey, under it to show history
+- https://stackoverflow.com/questions/18262288/finding-total-contributions-of-a-user-from-github-api
  
 - [ ] Customisable Clock Faces (its background so just make a template maybe)
 
