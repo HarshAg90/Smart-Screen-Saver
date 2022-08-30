@@ -22,13 +22,9 @@ function currentTime() {
 }
 currentTime();
 
-// so we need username, and peronal authentication token
-const username = "HarshAg90";
-const ghToken = "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";
-
 async function getContributions(token, username) {
     const headers = {
-        'Authorization': `bearer ${token}`,
+        "Authorization": "bearer "+token,
     }
     const body = {
         "query": `{user(login: "${username}") {
@@ -47,60 +43,79 @@ async function getContributions(token, username) {
                 }
             }`
     }
-    const response = await fetch('https://api.github.com/graphql', { method: 'POST', body: JSON.stringify(body), headers: headers })
-    const data = await response.json()
-    
-    return {week1: data.data.user.contributionsCollection.contributionCalendar.weeks[51].contributionDays, week2:data.data.user.contributionsCollection.contributionCalendar.weeks[52].contributionDays}
-}
-
-
-
-var rendering_fn = function () {
-    (async()=>{
-        const data = await getContributions(secrets.ACCESS_TOKEN, 'HarshAg90');
-
-        const contrib_div = document.querySelector(".contributes");
-        const alert_div = document.querySelector(".alert")
-
-        let conrib_list = [];
-        let last_cont = 0;
-        for (let [key,value] of Object.entries(data.week1)){
-            conrib_list.push(value.contributionCount)
-            last_cont = value.contributionCount
-        }
-        for (let [key,value] of Object.entries(data.week2)){
-            conrib_list.push(value.contributionCount)
-            last_cont = value.contributionCount
-        }
-        console.log("Past 2 week contribution")
-        console.log(conrib_list)
-
-        for (c= (conrib_list.length - 7 );c<conrib_list.length; c++){
-            contrib_count = conrib_list[c];
-            const contrib_box = document.createElement("Div");
-            contrib_box.classList.add("contrib_box");
-
-            if (contrib_count == 0){
-                contrib_box.classList.add("zero");
-            }else if (contrib_count == 1){
-                contrib_box.classList.add("one");
-            }else if (contrib_count <= 3){
-                contrib_box.classList.add("three");
-            }else if (contrib_count > 3){
-                contrib_box.classList.add("more");
-            }
-
-            contrib_div.appendChild(contrib_box)
-        }
-        if (last_cont ==0){
-            alert_div.innerText = "NO CONTRIBUTIONS TODAY"
-            alert_div.classList.add("incomp_commit");
-        }else if (last_cont>0){
-            alert_div.innerText = last_cont+ " - Contributions made today"
-            alert_div.classList.add("comp_commit");
-        }
+    try {
+        const response = await fetch('https://api.github.com/graphql', { method: 'POST', body: JSON.stringify(body), headers: headers })
+        const data = await response.json()
+        return {week1: data.data.user.contributionsCollection.contributionCalendar.weeks[51].contributionDays, week2:data.data.user.contributionsCollection.contributionCalendar.weeks[52].contributionDays}
+    }catch(err){
+        console.log("data not found");
+        console.log(err);
+        return false;
     }
-    )()
 }
 
-rendering_fn()
+async function rendering(inp_data){
+    var data = await getContributions(inp_data.key,inp_data.username);
+
+    if (!data){
+        console.log("data not found");
+        return
+    }
+
+    const contrib_div = document.querySelector(".contributes");
+    const alert_div = document.querySelector(".alert")
+
+    let conrib_list = [];
+    let last_cont = 0;
+
+    for (let [key,value] of Object.entries(data.week1)){
+        conrib_list.push(value.contributionCount)
+        last_cont = value.contributionCount
+    }
+
+    for (let [key,value] of Object.entries(data.week2)){
+        conrib_list.push(value.contributionCount)
+        last_cont = value.contributionCount
+    }
+
+    console.log("Past 2 week contribution")
+    console.log(conrib_list)
+
+    for (c= (conrib_list.length - 7 );c<conrib_list.length; c++){
+        contrib_count = conrib_list[c];
+
+        const contrib_box = document.createElement("Div");
+        contrib_box.classList.add("contrib_box");
+
+        if (contrib_count == 0){
+            contrib_box.classList.add("zero");
+        }else if (contrib_count == 1){
+            contrib_box.classList.add("one");
+        }else if (contrib_count <= 3){
+            contrib_box.classList.add("three");
+        }else if (contrib_count > 3){
+            contrib_box.classList.add("more");
+        }
+
+        contrib_div.appendChild(contrib_box)
+    }
+
+    if (last_cont ==0){
+        alert_div.innerText = "NO CONTRIBUTIONS TODAY"
+        alert_div.classList.add("incomp_commit");
+    }else if (last_cont>0){
+        alert_div.innerText = last_cont+ " - Contributions made today"
+        alert_div.classList.add("comp_commit");
+    }
+}
+
+var main = function () {
+    (async()=>{
+        fetch('storage/access_key.json')
+            .then((response) => response.json())
+            .then((data) => {
+                rendering(data);
+            })
+    })()
+}
+main()
