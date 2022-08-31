@@ -1,62 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Montserrat&family=Poppins:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Aboreto&family=Montserrat&family=Poppins:wght@300;400&display=swap");
 
-body{
-    background-color: black;
-    color: rgb(210, 210, 210);
-    font-family: 'Montserrat','Poppins', sans-serif, cursive;
-    height: 100vh;
-    width: 100vw;
-    margin: 0;
-    box-sizing: border-box;
-    padding: 0;
-
-}
-
-#clock{
-    width: 50%;
-    height: 40%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10rem;
-    font-weight: 100;
-}
-.contributes{
-    display: flex;
-    margin-left: 3rem;
-}
-.contrib_box{
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-    margin: 20px;
-}
-.zero{
-    background-color: rgba(112, 112, 112, 0.754);
-}
-.one{
-    background-color: rgba(0, 215, 253, 0.35);
-}
-.three{
-    background-color: rgba(0, 215, 253, 0.70);
-}
-.more{
-    background-color: rgba(0, 215, 253, 0.95);
+body {
+  background-color: black;
+  color: rgb(210, 210, 210);
+  font-family: "Montserrat", "Poppins", sans-serif, cursive;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
 }
 
-.alert{
-    margin: 5px;
-    padding:1rem;
-    margin-left: 4rem;
-    border-radius: 10px;
-    width: fit-content;
-    color: rgba(201, 200, 200, 0.623);
+#clock {
+  width: 50%;
+  height: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10rem;
+  font-weight: 100;
 }
-.incomp_commit{
-    color: white;
-    background-color: rgba(199, 40, 40, 0.529);
+.contributes {
+  display: flex;
+  margin-left: 3rem;
 }
-.comp_commit{
-    color: white;
-    background-color: rgba(0, 215, 253, 0.35);
+.contrib_box {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  margin: 20px;
+}
+.zero {
+  background-color: rgba(112, 112, 112, 0.754);
+}
+.one {
+  background-color: rgba(0, 215, 253, 0.35);
+}
+.three {
+  background-color: rgba(0, 215, 253, 0.7);
+}
+.more {
+  background-color: rgba(0, 215, 253, 0.95);
+}
+
+.alert {
+  margin: 5px;
+  padding: 1rem;
+  margin-left: 4rem;
+  border-radius: 10px;
+  width: fit-content;
+  color: rgba(201, 200, 200, 0.623);
+}
+.incomp_commit {
+  color: white;
+  background-color: rgba(199, 40, 40, 0.529);
+}
+.comp_commit {
+  color: white;
+  background-color: rgba(0, 215, 253, 0.35);
 }
