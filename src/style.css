@@ -59,3 +59,17 @@ body {
   color: white;
   background-color: rgba(0, 215, 253, 0.35);
 }
+.daily-todos{
+  padding: 30px;
+}
+ul{
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  
+}
+li{
+  font-size: 2rem;
+  padding: 10px;
+
+}
