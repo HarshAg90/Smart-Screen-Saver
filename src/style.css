@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Aboreto&family=Montserrat&family=Poppins:wght@300;400&display=swap");
-
+/* for mobile */
 body {
   background-color: black;
   color: rgb(210, 210, 210);
@@ -20,6 +20,7 @@ body {
   font-size: 10rem;
   font-weight: 100;
 }
+
 .contributes {
   display: flex;
   margin-left: 3rem;
@@ -66,10 +67,16 @@ ul{
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  
+
 }
 li{
   font-size: 2rem;
   padding: 10px;
-
-}
+  display: flex;
+  justify-content: space-around;
+  width: 10rem;
+  background-color: rgba(255, 255, 255, 0.255);
+  color: rgba(0, 215, 253, 0.95);
+  margin: 1rem;
+  border-radius: 25px;
+}  
