@@ -16,11 +16,6 @@ function currentTime() {
     hh = (hh < 10) ? "0" + hh : hh;
     mm = (mm < 10) ? "0" + mm : mm;
     ss = (ss < 10) ? "0" + ss : ss;
-    
-    let hours = hh;
-    let min = mm;
-    let sec = ss;
-    let am_pm = session;
 
     document.querySelector(".hrs").innerText = hh;
     document.querySelector(".mins").innerText = mm;
@@ -56,15 +51,17 @@ async function getContributions(token, username) {
         const data = await response.json()
         return {week1: data.data.user.contributionsCollection.contributionCalendar.weeks[51].contributionDays, week2:data.data.user.contributionsCollection.contributionCalendar.weeks[52].contributionDays}
     }catch(err){
-        console.log("data not found");
+        console.log("wrong token");
         console.log(err);
         return false;
     }
 }
 
-async function rendering(inp_data){
-    var data = await getContributions(inp_data.key,inp_data.username);
 
+
+async function rendering(inp_data){ // inp_data
+    var data = await getContributions(inp_data.key,inp_data.username);
+    console.log(data)
     if (!data){
         console.log("data not found");
         return
@@ -119,11 +116,23 @@ async function rendering(inp_data){
 
 var main = function () {
     (async()=>{
-           fetch('storage/access_key.json')
-            .then((response) => response.json())
-            .then((data) => {
-                rendering(data);
-            })
+        rendering(
+            // copy paste the whole access_key.json here to run
+        )
     })()
 }
 main()
+
+
+// const api_url ="https://zenquotes.io/api/quotes/";
+
+// async function getapi(url)
+// {
+//   const response = await fetch("https://zenquotes.io/api/random");
+//   var data = await response.json();
+//   console.log(data);
+// }
+
+// getapi(api_url);
+
+// this API doesn't work for "quots" because of Cors error in its server, find a new one
