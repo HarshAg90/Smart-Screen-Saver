@@ -11,30 +11,93 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-}
-.section{
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
 }
 
-#clock {
+/* #clock {
   min-width: 500px;
-  height: 40%;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  .hrs, .mins{
+    font-size: 14rem;
+    font-weight: 900;
+    color: black;
+    padding: 30px;
+    margin: 10px;
+    margin: 10px;
+    background-color: rgba(218, 218, 218, 0.984);
+    border-radius: 50px;
+  }
+  .secs, .session{
+    font-size: 4rem;
+    font-weight: 300;
+    width: 80px;
+    margin: 10px;
+  }
+} */
+.clock {
+  height: 20vh;
+  color: white;
+  font-size: 22vh;
+  font-family: sans-serif;
+  line-height: 20.4vh;
+  display: flex;
+  position: relative;
+  /*background: green;*/
+  overflow: hidden;
 }
-.hrs, .mins{
-  font-size: 8rem;
-  font-weight: 300;
-  margin: 10px;
+
+.clock::before, .clock::after {
+  content: '';
+  width: 7ch;
+  height: 3vh;
+  background: linear-gradient(to top, transparent, black);
+  position: absolute;
+  z-index: 2;
 }
-.secs, .session{
-  font-size: 3rem;
-  font-weight: 300;
+
+.clock::after {
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent, black);
+}
+
+.clock > div {
+  display: flex;
+}
+
+.tick {
+  line-height: 17vh;
+}
+
+.tick-hidden {
+  opacity: 0;
+}
+
+.move {
+  animation: move linear 1s infinite;
+}
+
+@keyframes move {
+  from {
+    transform: translateY(0vh);
+  }
+  to {
+    transform: translateY(-20vh);
+  }
+}
+
+
+
+
+/* _____________ */
+.section{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100vw;
   margin: 10px;
 }
 .contributes {
@@ -47,6 +110,7 @@ body {
   border-radius: 5px;
   margin: 20px;
 }
+
 .zero {
   background-color: rgba(112, 112, 112, 0.754);
 }

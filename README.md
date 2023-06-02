@@ -1,11 +1,5 @@
 # Tooth-paste
 
-## Hosted at
-
-## [Tooth Brush reminder](https://harshag90.github.io/toothBrush-reminder/)
-
-tho GitHub commit feature may still not be visible since auth token can't be in this repo
-
 ## About
 
 `Clock screen` with `Github Actions report` of the past week, to keep track of every day commits and remind you if you didn't commit today, with a red alert
@@ -33,24 +27,8 @@ tho GitHub commit feature may still not be visible since auth token can't be in 
 
 1. __github access will require a token, here's how to get them__
 [Access token setup](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token "docs.github")
-1. *Make a folder* in the `root` directory of a project named `storage`,
 
-   ```bash
-    mkdir storage
-   ```
-
-    If it already exists,
-
-1. Run
-
-   ```bash
-    cd storage
-    touch access_key.json
-   ```
-
-    this will create a credentials file
-
-1. open the `access_key.json` file add paste the following code
+1. open the `script.js` file add paste the following code in last line's function call arguement
 
    ```JSON
     {
@@ -59,6 +37,6 @@ tho GitHub commit feature may still not be visible since auth token can't be in 
     }
    ```
 
-1. Save it and run `index.html`
+2. Save it and run `index.html`
 
 ⛔ report in the description if it’s not working, or reach out to me

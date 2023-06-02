@@ -1,30 +1,105 @@
-function currentTime() {
-    let date = new Date(); 
-    let hh = date.getHours();
-    let mm = date.getMinutes();
-    let ss = date.getSeconds();
-    let session = "AM";
+// function currentTime() {
+//     let date = new Date(); 
+//     let hh = date.getHours();
+//     let mm = date.getMinutes();
+//     let ss = date.getSeconds();
+//     let session = "AM";
 
-    if(hh == 0){
-        hh = 12;
-    }
-    if(hh > 12){
-        hh = hh - 12;
-        session = "PM";
-    }
+//     if(hh == 0){
+//         hh = 12;
+//     }
+//     if(hh > 12){
+//         hh = hh - 12;
+//         session = "PM";
+//     }
 
-    hh = (hh < 10) ? "0" + hh : hh;
-    mm = (mm < 10) ? "0" + mm : mm;
-    ss = (ss < 10) ? "0" + ss : ss;
+//     hh = (hh < 10) ? "0" + hh : hh;
+//     mm = (mm < 10) ? "0" + mm : mm;
+//     ss = (ss < 10) ? "0" + ss : ss;
 
-    document.querySelector(".hrs").innerText = hh;
-    document.querySelector(".mins").innerText = mm;
-    document.querySelector(".secs").innerText = ss;
-    document.querySelector(".session").innerText = session;
-    let t = setTimeout(function(){ currentTime() }, 1000);
+//     document.querySelector(".hrs").innerText = hh;
+//     document.querySelector(".mins").innerText = mm;
+//     document.querySelector(".secs").innerText = ss;
+//     document.querySelector(".session").innerText = session;
+//     let t = setTimeout(function(){ currentTime() }, 1000);
+// }
+// currentTime();
+
+var hoursContainer = document.querySelector('.hours')
+var minutesContainer = document.querySelector('.minutes')
+var secondsContainer = document.querySelector('.seconds')
+var tickElements = Array.from(document.querySelectorAll('.tick'))
+
+var last = new Date(0)
+last.setUTCHours(-1)
+
+var tickState = true
+
+function updateTime () {
+  var now = new Date
+  
+  var lastHours = last.getHours().toString()
+  var nowHours = now.getHours().toString()
+  if (lastHours !== nowHours) {
+    updateContainer(hoursContainer, nowHours)
+  }
+  
+  var lastMinutes = last.getMinutes().toString()
+  var nowMinutes = now.getMinutes().toString()
+  if (lastMinutes !== nowMinutes) {
+    updateContainer(minutesContainer, nowMinutes)
+  }
+  
+  var lastSeconds = last.getSeconds().toString()
+  var nowSeconds = now.getSeconds().toString()
+  if (lastSeconds !== nowSeconds) {
+    //tick()
+    updateContainer(secondsContainer, nowSeconds)
+  }
+  
+  last = now
 }
-currentTime();
 
+function tick () {
+  tickElements.forEach(t => t.classList.toggle('tick-hidden'))
+}
+
+function updateContainer (container, newTime) {
+  var time = newTime.split('')
+  
+  if (time.length === 1) {
+    time.unshift('0')
+  }
+  
+  
+  var first = container.firstElementChild
+  if (first.lastElementChild.textContent !== time[0]) {
+    updateNumber(first, time[0])
+  }
+  
+  var last = container.lastElementChild
+  if (last.lastElementChild.textContent !== time[1]) {
+    updateNumber(last, time[1])
+  }
+}
+
+function updateNumber (element, number) {
+  //element.lastElementChild.textContent = number
+  var second = element.lastElementChild.cloneNode(true)
+  second.textContent = number
+  
+  element.appendChild(second)
+  element.classList.add('move')
+
+  setTimeout(function () {
+    element.classList.remove('move')
+  }, 990)
+  setTimeout(function () {
+    element.removeChild(element.firstElementChild)
+  }, 990)
+}
+
+setInterval(updateTime, 100)
 async function getContributions(token, username) {
     const headers = {
         "Authorization": "bearer "+token,
@@ -64,6 +139,7 @@ async function rendering(inp_data){ // inp_data
     console.log(data)
     if (!data){
         console.log("data not found");
+        document.querySelector(".contributes").innerHTML = `<h1>Offline</h1>`;
         return
     }
 
@@ -113,26 +189,7 @@ async function rendering(inp_data){ // inp_data
         alert_div.classList.add("comp_commit");
     }
 }
-
-var main = function () {
-    (async()=>{
-        rendering(
-            // copy paste the whole access_key.json here to run
-        )
-    })()
-}
-main()
-
-
-// const api_url ="https://zenquotes.io/api/quotes/";
-
-// async function getapi(url)
-// {
-//   const response = await fetch("https://zenquotes.io/api/random");
-//   var data = await response.json();
-//   console.log(data);
-// }
-
-// getapi(api_url);
-
-// this API doesn't work for "quots" because of Cors error in its server, find a new one
+rendering({
+    key:"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",
+    username:"harshag90"
+})
