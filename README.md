@@ -1,4 +1,5 @@
 # Tooth-paste
+![screenshot of product](https://github.com/HarshAg90/Smart-Screen-Saver/blob/main/Screenshot.png)
 
 ## About
 

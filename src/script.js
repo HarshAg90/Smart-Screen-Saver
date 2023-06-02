@@ -190,6 +190,6 @@ async function rendering(inp_data){ // inp_data
     }
 }
 rendering({
-    key:"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",
+    key:"GET YOUR OWN KEY",
     username:"harshag90"
 })
